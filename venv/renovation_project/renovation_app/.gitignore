@@ -16,4 +16,4 @@ db.sqlite3
 *.log
 
 # Ignore media/uploads (optional)
-media/
+# media/
