@@ -94,7 +94,7 @@ class LoginForm(forms.Form):
         label="PASSWORD",
         widget=forms.PasswordInput(attrs={'id':'password','name':'password'})
     )
-class EditProfileForm(forms.ModelForm):
+class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model=Register
         fields=['first_name', 'last_name', 'username', 'email', 'contact', 'image']

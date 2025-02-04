@@ -83,9 +83,9 @@ def profile(request):
 
 
 
-def edit_profile(request):
+def update_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, request.FILES, instance=request.user)
+        form = UpdateProfileForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user) # Prevent user from being logged out
@@ -94,7 +94,7 @@ def edit_profile(request):
         else:
             messages.error(request, "Profile update failed. Please check your form.", extra_tags = "error")
     else:
-        form = EditProfileForm(instance=request.user)
+        form = UpdateProfileForm(instance=request.user)
 
     return render(request, 'registration.html', {'form': form, 'title':'Update'})
 

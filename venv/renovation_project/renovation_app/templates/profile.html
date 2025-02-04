@@ -17,14 +17,14 @@
                   <img src="{{ user.image.url }}" alt="User Profile Picture">
                   {% else %}
                   <img src="{% static 'images/11539820.png' %}" alt="User Profile Picture">
-                  {% endif %}
+                  {% endif %}
                   <h2>{{ user.first_name }} {{ user.last_name }}</h2>
                 </div>
             
                 <p id="username">{{ user.username }}</p>
                 <p id="email">{{ user.email }}</p>
                 <p id="contact">{{ user.contact }}</p>
-                <a href="/edit_profile"><button class="edit-button">Edit Profile</button></a>
+                <a href="/update_profile"><button class="edit-button">Update Profile</button></a>
               </div>
             
              
