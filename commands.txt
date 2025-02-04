@@ -1,0 +1,17 @@
+1. vir env
+    1. py -m venv venv
+    2. cd venv
+    3. scripts\activate
+
+2. django
+    1. pip install django
+    2. py -m django startproject projectname
+    3. cd projectname
+    4. py manage.py startapp appname
+    5. in userapp create folder templates, static
+    6. in userapp create file urls.py
+
+3. migration
+    1. py manage.py makemigrations
+    2. py manage.py migrate
+    3. py manage.py runserver

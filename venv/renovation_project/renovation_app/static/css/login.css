@@ -1,0 +1,129 @@
+.nav-link {
+    color: black;
+}
+
+
+.login-container {
+    width: 350px;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 100px;
+    margin-left: auto; /* Center horizontally */
+    margin-right: auto; /* Center horizontally */
+    height: 65vh;
+    background-color: #f4f6f4;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h1 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #142a3f;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+.message {
+    padding: -20px;
+    margin-bottom: 18px;
+    margin-top: -22px;
+    border-radius: 5px;
+    text-align: center;
+    width: 225px;
+    font-weight: 200;
+    margin-left: 0.8cm;
+    font-size:small;
+}
+
+.message.success {
+    background: #d4edda79;
+    color: #155724;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #e3152a;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -30px;
+}
+
+form label {
+    width: 40%; /* Adjust width as needed */
+    text-align: center;
+    margin-right: -105px;
+    color: #747373;
+    font-size: 11px;
+    margin-top: -50px;
+    font-weight: bold;
+}
+
+form input {
+    width: 86%; /* Adjust width as needed */
+    padding: 9px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #E0E0E0;
+    transition: 0.2s;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #3C8B75;
+}
+
+input, button {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #E0E0E0;
+    transition: 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #3C8B75;
+}
+
+button {
+    background: #2e9e5b;
+    color: #FFFFFF;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid #2e9e5b;
+    text-transform: uppercase;
+    align-self: center;
+    width: 41%;
+    
+}
+
+button:hover {
+    background: #2e4941;
+}
+
+.link {
+    font-size: 16px;
+    color: #333; /* Keeps "New User?" in normal text color */
+    margin-top: -20px;
+}
+
+.link a {
+    color: rgb(84, 84, 248); /* Only "Register" is blue and clickable */
+    text-decoration: underline;
+}
+
+.link a:hover {
+    color: darkblue;
+}
+

@@ -1,0 +1,73 @@
+/* Hero section */
+.hero-wrap {
+    position: relative;
+    width: 100%;
+    height: 95vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+}
+
+/* Dark overlay */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    display: flex;
+    align-items: center; /* Center container inside the overlay */
+    justify-content: center;
+}
+
+/* Container for content */
+.type-container {
+    text-align: center;
+    z-index: 3;
+    background: rgba(52, 49, 49, 0.457); /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 10px;
+    width: 75%;
+    margin-top: 74px;
+}
+
+/* Title */
+h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: rgb(237, 227, 227);
+    margin-bottom: 20px;
+}
+
+/* Button container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Role selection buttons */
+.role-button {
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: 0;
+    text-align: center;
+    text-decoration: none;
+    background-color: #28a745; /* Bright green */
+    color: #ffffff; /* White text for better contrast */
+    border-radius: 8px;
+    transition: 0.3s;
+    display: inline-block;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds a slight shadow for better visibility */
+}
+
+/* Button hover effect */
+.role-button:hover {
+    background-color: #ffffff; /* Darker green on hover */
+    color: #0b0c0c;
+}

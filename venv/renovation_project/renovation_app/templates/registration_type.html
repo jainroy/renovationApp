@@ -1,0 +1,20 @@
+{% load static %}
+{% include 'header.html' %}
+
+<link rel="stylesheet" href="{% static 'css/registration_type.css' %}">
+<body>
+    <section class="hero-wrap" style="background-image: url('../static/images/bg_1.jpg');">
+        <div class="overlay"></div>
+            <div class="type-container">
+                <h1>Select Your Registration Type</h1>
+                <div class="button-container">
+                    <a href="{% url 'registration' %}" class="role-button">Regular User</a>
+                    <a href="" class="role-button">Interior Designer</a>
+                    <a href="" class="role-button">Contract Worker</a>
+                    <a href="" class="role-button">Material Supplier</a>
+                </div>
+            </div>
+
+    </section>
+</body>
+{% include 'footer.html' %}
