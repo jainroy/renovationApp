@@ -133,7 +133,7 @@ def reset_password(request):
             otp=form.cleaned_data['otp']
             email=form.cleaned_data['email']
             user = Register.objects.get(email=email)
-            user_otp=Reset.objects.filter(user=user).first()
+            user_otp=Reset.objects.filter(otp=otp).first()
             if user_otp.otp == otp:
                 newpassword=form.cleaned_data['new_password']
                 data=Register.objects.get(id=user.id)
@@ -145,10 +145,13 @@ def reset_password(request):
                 messages.success(request,"Password changed", extra_tags="success")
                 return redirect('user_login')
             else:
+                print(1)
                 messages.error(request,"Inavalid otp", extra_tags="error")
         else:
+            print(2)
             messages.error(request,"Inavalid form data", extra_tags="error")
     else:
+        print(3)
         form=ResetPasswordForm()
     return render(request,'reset_password.html',{'form':form})
 def delete_user(request,id):
