@@ -35,38 +35,53 @@
 	      <div class="collapse navbar-collapse" >
 	        {% if request.session.ut == 'user' %}
 			<ul class="navbar-nav nav ml-auto">
-	          <li class="nav-item"><a href="/" class="nav-link" data-nav-section="home"><span>Home</span></a></li>
+	          <li class="nav-item {% if request.path == '/' %}active{% endif %}"><a href="/" class="nav-link" data-nav-section="home"><span>Home</span></a></li>
 	          <li class="nav-item"><a href="/#section-counter" class="nav-link" data-nav-section="about"><span>About</span></a></li>
-			  <li class="nav-item"><a href="/user_logout" class="nav-link" data-nav-section="about"><span>Logout</span></a></li>
-	          <li class="nav-item"><a href="/profile" class="nav-link" data-nav-section="about"><span>My Profile</span></a></li>
+	          <li class="nav-item {% if request.path == '/profile' %}active{% endif %}"><a href="/profile" class="nav-link" data-nav-section="about"><span>My Profile</span></a></li>
+			  <li class="nav-item {% if request.path == '/user_logout' %}active{% endif %}"><a href="/user_logout" class="nav-link" data-nav-section="about"><span>Logout</span></a></li>
 			  <li class="nav-item cta">
 				<a href="" class="nav-link">
-					<span style="color: black !important;">Hi, </span> {{ request.user.first_name }} {{ request.user.last_name }}
+					<span style="color: black !important;">Hi, </span> {{ request.user.first_name }}
 				</a>
 			  </li>
 
 	        </ul>
 			{% elif request.session.ut == 'admin' %}
 			<ul class="navbar-nav nav ml-auto">
-				<li class="nav-item"><a href="/" class="nav-link" data-nav-section="home"><span>Home</span></a></li>
+				<li class="nav-item {% if request.path == '/' %}active{% endif %}"><a href="/" class="nav-link" data-nav-section="home"><span>Home</span></a></li>
 				<li class="nav-item"><a href="/#section-counter" class="nav-link" data-nav-section="about"><span>About</span></a></li>
-				<li class="nav-item"><a href="/view_user" class="nav-link" data-nav-section="about"><span>View Users</span></a></li>
-				<li class="nav-item"><a href="/user_logout" class="nav-link" data-nav-section="about"><span>Logout</span></a></li>
+				<li class="nav-item {% if request.path == '/view_users' %}active{% endif %}"><a href="/view_users" class="nav-link" data-nav-section="about"><span>Users</span></a></li>
+				<li class="nav-item {% if request.path == '/view_designers' %}active{% endif %}"><a href="/view_designers" class="nav-link" data-nav-section="about"><span>Designers</span></a></li>
+				<li class="nav-item {% if request.path == '/view_contractors' %}active{% endif %}"><a href="/view_contractors" class="nav-link" data-nav-section="about"><span>Contractors</span></a></li>
+				<li class="nav-item {% if request.path == '/user_logout' %}active{% endif %}"><a href="/user_logout" class="nav-link" data-nav-section="about"><span>Logout</span></a></li>
 				<li class="nav-item cta">
 					<a href="" class="nav-link">
-						<span style="color: black !important;">Hi, </span> Administrator
+						<span style="color: black !important;">Hi, </span> Admin
 					</a>
 				</li>
 			</ul>
 			{% elif request.session.ut == 'designer' %}
 			<ul class="navbar-nav nav ml-auto">
-	          <li class="nav-item"><a href="/" class="nav-link" data-nav-section="home"><span>Home</span></a></li>
+	          <li class="nav-item {% if request.path == '/' %}active{% endif %}"><a href="/" class="nav-link" data-nav-section="home"><span>Home</span></a></li>
 	          <li class="nav-item"><a href="/#section-counter" class="nav-link" data-nav-section="about"><span>About</span></a></li>
-	          <li class="nav-item"><a href="/designer_profile" class="nav-link" data-nav-section="about"><span>My Profile</span></a></li>
-			  <li class="nav-item"><a href="/user_logout" class="nav-link" data-nav-section="about"><span>Logout</span></a></li>
+	          <li class="nav-item {% if request.path == '/designer_profile' %}active{% endif %}"><a href="/designer_profile" class="nav-link" data-nav-section="about"><span>My Profile</span></a></li>
+			  <li class="nav-item {% if request.path == '/user_logout' %}active{% endif %}"><a href="/user_logout" class="nav-link" data-nav-section="about"><span>Logout</span></a></li>
 			  <li class="nav-item cta">
 				<a href="" class="nav-link">
-					<span style="color: black !important;">Hi, </span> {{ request.user.first_name }} {{ request.user.last_name }}
+					<span style="color: black !important;">Hi, </span> {{ request.user.first_name }}
+				</a>
+			  </li>
+
+	        </ul>
+			{% elif request.session.ut == 'contractor' %}
+			<ul class="navbar-nav nav ml-auto">
+	          <li class="nav-item {% if request.path == '/' %}active{% endif %}"><a href="/" class="nav-link" data-nav-section="home"><span>Home</span></a></li>
+	          <li class="nav-item"><a href="/#section-counter" class="nav-link" data-nav-section="about"><span>About</span></a></li>
+	          <li class="nav-item {% if request.path == '/contractor_profile' %}active{% endif %}"><a href="/contractor_profile" class="nav-link" data-nav-section="about"><span>My Profile</span></a></li>
+			  <li class="nav-item {% if request.path == '/user_logout' %}active{% endif %}"><a href="/user_logout" class="nav-link" data-nav-section="about"><span>Logout</span></a></li>
+			  <li class="nav-item cta">
+				<a href="" class="nav-link">
+					<span style="color: black !important;">Hi, </span> {{ request.user.first_name }}
 				</a>
 			  </li>
 
@@ -80,7 +95,7 @@
 				<li class="nav-item"><a href="/#testimony" class="nav-link" data-nav-section="testimony"><span>Testimony</span></a></li>
 				<li class="nav-item"><a href="/#blog" class="nav-link" data-nav-section="blog"><span>Blog</span></a></li>
 				<li class="nav-item"><a href="/#contact" class="nav-link" data-nav-section="contact"><span>Contact</span></a></li>
-				<li class="nav-item"><a href="/user_login" class="nav-link">Login</a></li>
+				<li class="nav-item {% if request.path == '/user_login' %}active{% endif %}"><a href="/user_login" class="nav-link">Login</a></li>
 				<li class="nav-item cta"><a href="/#section-counter" class="nav-link">Request a quote</a></li>
   
 			</ul>
@@ -89,17 +104,43 @@
 	    </div>
 	  </nav>
 
-	  {% if messages %}
-      <script>
-          document.addEventListener("DOMContentLoaded", function() {
-              {% for message in messages %}
-                  {% if 'success' in message.tags %}
-                      alert("✅ Success: {{ message|escapejs }}");
-                  {% endif %}
-                  {% if 'er	<li class=ror' in message.tags %}
-                      alert("❌ Error: {{ message|escapejs }}");
-                  {% endif %}
-              {% endfor %}
-          });
-      </script>
-  {% endif %}
+{% if messages %}
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			{% for message in messages %}
+				{% if 'success' in message.tags %}
+					alert("✅ Success: {{ message|escapejs }}");
+				{% endif %}
+				{% if 'er	<li class=ror' in message.tags %}
+					alert("❌ Error: {{ message|escapejs }}");
+				{% endif %}
+			{% endfor %}
+		});
+	</script>
+{% endif %}
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+	  let currentPath = window.location.pathname;
+	  let currentHash = window.location.hash;
+	  let navItems = document.querySelectorAll(".navbar-nav .nav-item");
+  
+	  navItems.forEach(function (navItem) {
+		let link = navItem.querySelector("a");
+  
+		if (link) {
+		  let linkPath = link.getAttribute("href").split("#")[0]; // Get base path before #
+		  let linkHash = link.getAttribute("href").split("#")[1] || ""; // Get hash part
+  
+		  // Remove 'active' class from all items first
+		  navItem.classList.remove("active");
+  
+		  // Match exact pathname OR if hash exists, match the hash part
+		  if (linkPath === currentPath && (!linkHash || `#${linkHash}` === currentHash)) {
+			navItem.classList.add("active");
+		  }
+		}
+	  });
+	});
+  </script>
+  

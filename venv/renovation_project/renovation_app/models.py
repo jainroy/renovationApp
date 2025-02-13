@@ -6,7 +6,10 @@ class Register(AbstractUser):
     contact = models.IntegerField( null = True)
     image = models.ImageField(upload_to = 'uploads/', null = True)
     experience = models.IntegerField(null = True)
-    license_no = models.CharField(max_length = 20, null = True)
+    license_no = models.CharField(max_length = 21, null = True)
+    location = models.URLField(max_length=2000, blank= True, null=True)
+    specialization = models.CharField(max_length = 50, blank= True, null = True)
+    is_approved = models.BooleanField(blank= True, default=False)
 
 class Reset(models.Model):
     otp = models.CharField(max_length=6, null=True)

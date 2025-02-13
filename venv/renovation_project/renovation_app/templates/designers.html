@@ -1,0 +1,70 @@
+{% load static %}
+{% include 'header.html' %}
+
+<!-- Font Awesome for Clipboard Icon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/table.css' %}"> <!-- Only for buttons and icon -->
+
+<body>
+    <table>
+        <tr>
+            <th>No</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>License Number</th>
+            <th>Actions</th>
+        </tr>
+        {% if designers %}
+            {% for designer in designers %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ designer.first_name }}</td>
+                <td>{{ designer.last_name }}</td>
+                <td>{{ designer.username }}</td>
+                <td>{{ designer.email }}</td>
+                <td>{{ designer.contact }}</td>
+                <td>
+                    <span id="license{{ forloop.counter }}">{{ designer.license_no }}</span>
+                    <i class="fa-regular fa-clipboard copy-icon" onclick="copyToClipboard('license{{ forloop.counter }}')"></i>
+                </td>
+                <td>
+                    {% if designer.is_approved %}
+                        <a href="{% url 'delete_designer' designer.id %}" class="btn delete-btn">Delete</a>
+                    {% else %}
+                        <a href="{% url 'approve_designer' designer.id %}" class="btn approve-btn">Approve</a>
+                        <a href="{% url 'reject_designer' designer.id %}" class="btn reject-btn">Reject</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="8" style="text-align: center;">No designers found.</td>
+            </tr>
+        {% endif %}
+    </table>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                // Change clipboard icon color to green
+                const copyIcon = document.querySelector(`#${elementId} + .copy-icon`);
+                copyIcon.classList.add("copied"); // Apply green color
+    
+                // Reset back to default color after 2 seconds
+                setTimeout(() => {
+                    copyIcon.classList.remove("copied");
+                }, 2000);
+            }).catch(err => {
+                console.error("Failed to copy: ", err);
+            });
+        }
+    </script>
+    
+</body>
+
+{% include 'footer.html' %}

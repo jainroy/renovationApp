@@ -8095,7 +8095,7 @@ h1, h2, h3, h4, h5,
     color: #2e9e5b; }
   @media (max-width: 991.98px) {
     .ftco-navbar-light .navbar-nav > .nav-item.active > a {
-      color: #2e9e5b; } }
+      color: #2e9e5b !important; } }
   .ftco-navbar-light .navbar-toggler {
     border: none;
     color: rgba(255, 255, 255, 0.5) !important;

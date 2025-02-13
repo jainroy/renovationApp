@@ -7,7 +7,7 @@ body {
 }
 
 table {
-    width: 80%;
+    width: 90%;
     margin: 50px auto;
     border-collapse: collapse;
     background-color: #fff;
@@ -49,4 +49,85 @@ table th:first-child, table td:first-child {
 
 table th:last-child, table td:last-child {
     border-right: 2px solid #ddd;
+}
+
+/* === Copy Icon Styling (Next to License Number) === */
+.copy-container {
+    display: flex;
+    align-items: center;
+}
+
+.copy-icon {
+    cursor: pointer;
+    margin-left: 8px;
+    color: #007bff;
+    transition: color 0.3s;
+    font-size: 16px;
+}
+
+.copy-icon:hover {
+    color: #0056b3;
+}
+
+/* === Button Styling === */
+.btn-container {
+    display: flex;
+    gap: 8px; /* Keeps Approve and Reject buttons next to each other */
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+/* Approve Button */
+.approve-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.approve-btn:hover {
+    background-color: #218838;
+}
+
+/* Reject Button */
+.reject-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.reject-btn:hover {
+    background-color: #c82333;
+}
+
+/* Delete Button */
+.delete-btn {
+    background-color: #a10a17;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c40d1d;
+    color: white;
+}
+
+/* Clipboard icon default color */
+.copy-icon {
+    cursor: pointer;
+    margin-left: 8px;
+    color: #007bff; /* Default blue */
+    transition: color 0.3s;
+    font-size: 16px;
+}
+
+/* Change to green after clicking */
+.copy-icon.copied {
+    color: #28a745 !important; /* Green */
 }
