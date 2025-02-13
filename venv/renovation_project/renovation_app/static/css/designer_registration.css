@@ -1,0 +1,135 @@
+.hero-wrap {
+    position: relative;
+    width: 100%;
+    height: 168vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.registration-container {
+    position: absolute;
+    z-index: 2;
+    background: #f4f6f4;
+    width: 500px;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    margin: auto;
+    margin-top: 150px;
+    margin-bottom: 100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-content: center;
+    margin-left: 290px;
+}
+
+.registration-container h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #142a3f;
+    margin-bottom: 18px;
+    margin-top: 1px;
+}
+
+.message {
+    padding: 5px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.message.success {
+    background: #D4EDDA;
+    color: #155724;
+}
+
+.message.error {
+    background: #F8D7DA;
+    color: #721C24;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "field1 field2"
+        "field3 field4"
+        "field5 field5"
+        "field6 field7";
+    gap: 10px;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 1px;
+    font-size: 11px;
+    color: #747373;
+    text-align: left;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #E0E0E0;
+    transition: 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #38f2bd;
+}
+
+button {
+    background: #2e9e5b;
+    color: #FFFFFF;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    text-transform: uppercase;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    grid-column: span 2;
+}
+
+button:hover {
+    background: #2E4941;
+}
+.error-list {
+    max-width: 100%; /* Ensures error messages don’t take too much space */
+    text-align: left; /* Aligns messages properly */
+}
+
+.error {
+    font-size: 12px; /* Reduces font size */
+    color: red;
+    margin-top: 2px;
+    word-wrap: break-word; /* Prevents overflow */
+}
+
+
+.field1 { grid-area: field1; }
+.field2 { grid-area: field2; }
+.field3 { grid-area: field3; }
+.field4 { grid-area: field4; }
+.field5 { grid-area: field5; }
+.field6 { grid-area: field6; }
+.field7 { grid-area: field7; }

@@ -55,11 +55,11 @@ h1 {
 .role-button {
     padding: 15px 25px;
     font-size: 18px;
-    font-weight: 0;
+    font-weight: bold;
     text-align: center;
     text-decoration: none;
-    background-color: #28a745; /* Bright green */
-    color: #ffffff; /* White text for better contrast */
+    background-color: #40a958; /* Bright green */
+    color: #2c2121; /* White text for better contrast */
     border-radius: 8px;
     transition: 0.3s;
     display: inline-block;

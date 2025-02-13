@@ -1,0 +1,40 @@
+{% load static %}
+{% include 'header.html' %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<section class="hero-wrap" style="background-image: url('../static/images/bg_1.jpg');" data-section="home">
+  <div class="overlay"></div>
+  <div class="container">
+      
+      <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+          
+          <div class="col-md-6 ftco-animate" data-scrollax="properties: { translateY: '70%' }">
+              
+            <body>
+              <div class="profile-card">
+                <div class="profile-header">
+                  {% if designer.image %}
+                  <img src="{{ designer.image.url }}" alt="User Profile Picture">
+                  {% else %}
+                  <img src="{% static 'images/11539820.png' %}" alt="User Profile Picture">
+                  {% endif %}
+                  <h2>{{ designer.first_name }} {{ designer.last_name }}</h2>
+                </div>
+            
+                <p id="username">{{ designer.username }}</p>
+                <p id="email">{{ designer.email }}</p>
+                <p id="contact">{{ designer.contact }}</p>
+                <p id="experience">{{ designer.experience }} Years</p>
+                <p id="license_no">{{ designer.license_no }}</p>
+                <a href="/update_profile"><button class="edit-button">Update Profile</button></a>
+              </div>
+            
+             
+            </body>
+          </div>
+      </div>
+  </div>
+</section>
+</html>
+
+{% include 'footer.html' %}

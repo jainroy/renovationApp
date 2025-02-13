@@ -5,6 +5,8 @@ class Register(AbstractUser):
     usertype = models.CharField(max_length = 50, default = "admin")
     contact = models.IntegerField( null = True)
     image = models.ImageField(upload_to = 'uploads/', null = True)
+    experience = models.IntegerField(null = True)
+    license_no = models.CharField(max_length = 20, null = True)
 
 class Reset(models.Model):
     otp = models.CharField(max_length=6, null=True)

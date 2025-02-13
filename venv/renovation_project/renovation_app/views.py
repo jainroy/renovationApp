@@ -133,7 +133,7 @@ def reset_password(request):
             otp=form.cleaned_data['otp']
             email=form.cleaned_data['email']
             user = Register.objects.get(email=email)
-            user_otp=Reset.objects.filter(otp=otp).first()
+            user_otp=Reset.objects.filter(user=user).first()
             if user_otp.otp == otp:
                 newpassword=form.cleaned_data['new_password']
                 data=Register.objects.get(id=user.id)
@@ -165,3 +165,32 @@ def delete_user(request,id):
     user.delete()
     messages.success(request,'user deleted successfully',extra_tags='success')
     return redirect('view_user')
+
+def designer_registration(request):
+    if request.method == 'POST':
+        form = DesignerRegisterForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            data = Register.objects.filter(email = form.cleaned_data['email'])
+            if data:
+                messages.error(request, "User already exists!", extra_tags = "error")
+                return redirect('user_login')
+            if form.is_valid():
+                designer = form.save(commit = False)
+                designer.usertype = "designer"
+                designer.password = make_password(form.cleaned_data['password'])
+                designer.save()
+                messages.success(request, "Registration successful", extra_tags = "success")
+                return redirect('user_login')
+            else:
+                messages.error(request, "Registration failed", extra_tags = "error")
+                form = DesignerRegisterForm()
+                return render (request, 'designer_registration.html', {'form' : form, 'title': 'Register'})
+    else:
+        form = DesignerRegisterForm()
+    return render (request, 'designer_registration.html', {'form' : form, 'title': 'Register'})
+
+def designer_profile(request):
+    id = request.user.id
+    designer = Register.objects.get(id=id)
+    return render (request, 'designer_profile.html', {'designer': designer})
