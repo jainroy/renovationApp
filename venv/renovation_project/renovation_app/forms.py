@@ -261,7 +261,7 @@ class UpdateDesignerProfileForm(forms.ModelForm):
 
     class Meta:
         model = Register
-        fields = ['first_name', 'last_name', 'username', 'email', 'contact', 'license_no', 'experience', 'image', 'location', 'specialization']
+        fields = ['first_name', 'last_name', 'username', 'email', 'contact', 'license_no', 'experience', 'image', 'location', 'specialization', 'portfolio']
         widgets = {
             'first_name': forms.TextInput(attrs={'id': 'first_name', 'name': 'first_name'}),
             'last_name': forms.TextInput(attrs={'id': 'last_name', 'name': 'last_name'}),
@@ -272,6 +272,7 @@ class UpdateDesignerProfileForm(forms.ModelForm):
             'experience': forms.NumberInput(attrs={'id': 'experience', 'name': 'experience'}),
             'image': forms.FileInput(attrs={'id': 'image', 'name': 'image'}),
             'location': forms.URLInput(attrs={'id': 'location', 'name': 'location'}),
+            'portfolio': forms.FileInput(attrs={'id': 'portfolio', 'name': 'portfolio', 'accept': 'application/pdf'}),
         }
         labels = {
             'first_name': 'FIRST NAME',
@@ -284,6 +285,7 @@ class UpdateDesignerProfileForm(forms.ModelForm):
             'image': 'NEW PROFILE PICTURE',
             'location': 'GOOGLE MAPS LOCATION',
             'specialization': 'SPECIALIZATION',
+            'portfolio': 'UPDATED PORTFOLIO',
         }
         help_texts = {
             'username': None
@@ -302,6 +304,12 @@ class UpdateDesignerProfileForm(forms.ModelForm):
         if not re.match(pattern, license_no):
             raise ValidationError("License number must be in the format 'CA/YYYY/XXXXX' (e.g., 'CA/2024/23456').")
         return license_no
+    def clean_portfolio(self):
+        portfolio = self.cleaned_data.get('portfolio')
+        if portfolio:
+            if not portfolio.name.endswith('.pdf'):
+                raise forms.ValidationError("Only PDF files are allowed.")
+        return portfolio
 class ContractorRegisterForm(forms.ModelForm):
     confirm_password = forms.CharField(
         max_length=20,
@@ -412,7 +420,7 @@ class UpdateContractorProfileForm(forms.ModelForm):
 
     class Meta:
         model = Register
-        fields = ['first_name', 'last_name', 'username', 'email', 'contact', 'license_no', 'experience', 'image', 'location', 'specialization']
+        fields = ['first_name', 'last_name', 'username', 'email', 'contact', 'license_no', 'experience', 'image', 'location', 'specialization', 'portfolio']
         widgets = {
             'first_name': forms.TextInput(attrs={'id': 'first_name', 'name': 'first_name'}),
             'last_name': forms.TextInput(attrs={'id': 'last_name', 'name': 'last_name'}),
@@ -423,6 +431,7 @@ class UpdateContractorProfileForm(forms.ModelForm):
             'experience': forms.NumberInput(attrs={'id': 'experience', 'name': 'experience'}),
             'image': forms.FileInput(attrs={'id': 'image', 'name': 'image'}),
             'location': forms.URLInput(attrs={'id': 'location', 'name': 'location'}),
+            'portfolio': forms.FileInput(attrs={'id': 'portfolio', 'name': 'portfolio', 'accept': 'application/pdf'}),
         }
         labels = {
             'first_name': 'FIRST NAME',
@@ -435,6 +444,7 @@ class UpdateContractorProfileForm(forms.ModelForm):
             'image': 'NEW PROFILE PICTURE',
             'location': 'GOOGLE MAPS LOCATION',
             'specialization': 'SPECIALIZATION',
+            'portfolio': 'UPDATED PORTFOLIO',
         }
         help_texts = {
             'username': None
@@ -456,5 +466,10 @@ class UpdateContractorProfileForm(forms.ModelForm):
                 "Invalid format! License number must be in the format '[State Code]/[Department]/[Category]/[Year]/[Serial Number]' "
                 "(e.g., 'MH/PWD/CON/2024/00123')."
             )
-        
         return license_no
+    def clean_portfolio(self):
+        portfolio = self.cleaned_data.get('portfolio')
+        if portfolio:
+            if not portfolio.name.endswith('.pdf'):
+                raise forms.ValidationError("Only PDF files are allowed.")
+        return portfolio

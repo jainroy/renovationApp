@@ -2,7 +2,7 @@
 {% include 'header.html' %}
 <link rel="stylesheet" href="{% static 'css/designer_profile.css' %}">
 
-<section class="hero-wrap" style="background-image: url('{% static 'images/bg_1.jpg' %}');" data-section="home">
+<section class="hero-wrap" style="background-image: url('../static/images/bg_1.jpg');" data-section="home">
   <div class="overlay"></div>
   <div class="container">
     <div class="row no-gutters align-items-center justify-content-center full-height">
@@ -12,9 +12,9 @@
         <div class="profile-left">
           <div class="profile-image">
             {% if designer.image %}
-            <img src="{{ designer.image.url }}" alt="User Profile Picture">
+            <img src="{{ designer.image.url }}" alt="Designer Profile Picture">
             {% else %}
-            <img src="{% static 'images/11539820.png' %}" alt="User Profile Picture">
+            <img src="{% static 'default_profile_picture.png' %}" alt="Designer Profile Picture">
             {% endif %}
           </div>
           <h2 class="profile-name">{{ designer.first_name }} {{ designer.last_name }}</h2>
@@ -43,6 +43,11 @@
           <p><strong>Specialization:</strong> {{ designer.specialization }}</p>
           {% else %}
           <p><strong>Specialization:</strong> <a class="link" href="/update_designer_profile"> Add Specialization</a></p>
+          {% endif %}
+          {% if designer.portfolio %}
+          <p><strong>Portfolio:</strong> <a href="{{ designer.portfolio.url }}" target="_blank" rel="noopener noreferrer">View PDF</a></p>
+          {% else %}
+          <p><strong>Portfolio:</strong> <a class="link" href="/update_designer_profile"> Add Portfolio</a></p>
           {% endif %}
 
           <a href="/update_designer_profile">

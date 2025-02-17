@@ -1,8 +1,23 @@
+/* Default navbar link color */
 .nav-link {
-    color: black;
+    color: #2e4941;
 }
 
+/* Ensure the active navbar link turns green */
+.nav-item.active .nav-link {
+    color: green !important;
+}
 
+/* Forgot password link styling */
+.forgot-link {
+    color: rgb(84, 84, 248);
+}
+
+.forgot-link:hover {
+    color: darkblue;
+}
+
+/* Login container styling */
 .login-container {
     width: 350px;
     padding: 30px;
@@ -11,11 +26,12 @@
     margin-top: 100px;
     margin-left: auto; /* Center horizontally */
     margin-right: auto; /* Center horizontally */
-    height: 65vh;
+    min-height: 65vh;
     background-color: #f4f6f4;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Login heading */
 .login-container h1 {
     font-size: 25px;
     font-weight: bold;
@@ -24,6 +40,7 @@
     text-transform: uppercase;
 }
 
+/* Message boxes */
 .message {
     padding: -20px;
     margin-bottom: 18px;
@@ -33,7 +50,7 @@
     width: 225px;
     font-weight: 200;
     margin-left: 0.8cm;
-    font-size:small;
+    font-size: small;
 }
 
 .message.success {
@@ -46,6 +63,7 @@
     color: #e3152a;
 }
 
+/* Form styling */
 form {
     display: flex;
     flex-direction: column;
@@ -69,6 +87,7 @@ form label {
     font-weight: bold;
 }
 
+/* Input fields */
 form input {
     width: 86%; /* Adjust width as needed */
     padding: 9px;
@@ -83,6 +102,7 @@ form input:focus {
     border-color: #3C8B75;
 }
 
+/* Input and button styling */
 input, button {
     padding: 8px;
     font-size: 14px;
@@ -96,7 +116,8 @@ input:focus {
     border-color: #3C8B75;
 }
 
-button {
+/* Submit button styling */
+.btn-sub {
     background: #2e9e5b;
     color: #FFFFFF;
     font-weight: bold;
@@ -105,25 +126,25 @@ button {
     text-transform: uppercase;
     align-self: center;
     width: 41%;
-    
 }
 
-button:hover {
+.btn-sub:hover {
     background: #2e4941;
 }
 
-.link {
+/* Registration link */
+.reg-link {
     font-size: 16px;
     color: #333; /* Keeps "New User?" in normal text color */
     margin-top: -20px;
 }
 
-.link a {
+/* Register link color */
+.reg-link a {
     color: rgb(84, 84, 248); /* Only "Register" is blue and clickable */
     text-decoration: underline;
 }
 
-.link a:hover {
+.reg-link a:hover {
     color: darkblue;
 }
-

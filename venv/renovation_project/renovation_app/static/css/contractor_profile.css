@@ -101,8 +101,8 @@
     width: 50%; /* Syncs button size with the card */
     position: relative;
     bottom: 0; /* Aligns with first 4 info bottom */
-    margin-top: 70px;
-    margin-left: 45px;
+    margin-top: 40px;
+    margin-left: 100px;
 }
 
 .edit-button:hover {

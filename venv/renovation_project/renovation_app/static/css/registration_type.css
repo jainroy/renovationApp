@@ -54,8 +54,8 @@ h1 {
 /* Role selection buttons */
 .role-button {
     padding: 15px 25px;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 20px;
+    /* font-weight: bold; */
     text-align: center;
     text-decoration: none;
     background-color: #40a958; /* Bright green */
