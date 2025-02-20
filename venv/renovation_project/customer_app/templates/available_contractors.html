@@ -1,0 +1,36 @@
+{% load static %}
+{% include 'header.html' %}
+<link rel="stylesheet" href="{% static 'css/available_designers.css' %}">
+
+<body>
+    <div class="designer-container">
+        {% if contractors %}
+            {% for contractor in contractors %}
+                <div class="designer-card">
+                    <div class="card-content">
+                        <!-- designer Profile Image -->
+                        {% if contractor.image %}
+                        <img src="{{ contractor.image.url }}" alt="Profile Image" class="profile-img">
+                        {% else %}
+                        <img class="default-profile-picture" src="{% static 'images/default_profile_picture.png' %}" alt="Designer Profile Picture">
+                        {% endif %}
+                        <!-- designer Details -->
+                        <h2>{{ contractor.first_name }} {{ contractor.last_name }}</h2>
+                        <p><strong>Username:</strong> {{ contractor.username }}</p>
+                        <p><strong>Email:</strong> {{ contractor.email }}</p>
+                        <p><strong>Contact:</strong> {{ contractor.contact }}</p>
+                        {% if contractor.license_no %}
+                        <p><strong>License No:</strong> {{ contractor.license_no }}</p>
+                        {% endif %}
+                        <!-- View Details Button -->
+                        <a href=""><button class="edit-button">View Details</button></a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-users">No contractors found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+{% include 'footer.html' %}

@@ -24,7 +24,7 @@ class Register(AbstractUser):
     license_no = models.CharField(max_length = 21, null = True)
     location = models.URLField(max_length=2000, blank= True, null=True)
     specialization = models.CharField(max_length = 50, blank= True, null = True)
-    is_approved = models.BooleanField(blank= True, default=False)
+    is_approved = models.BooleanField(blank= True, default=True)
     portfolio = models.FileField(upload_to=portfolio_upload_path, blank= True, null = True)
 
 class Reset(models.Model):

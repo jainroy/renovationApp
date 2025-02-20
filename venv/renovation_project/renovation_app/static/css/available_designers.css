@@ -1,0 +1,96 @@
+.designer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    margin-top: 120px;
+}
+
+.designer-card {
+    width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.designer-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Profile Image */
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #007bff;
+    margin-bottom: 10px;
+}
+
+.card-content h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.card-content p {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+}
+
+.btn.view-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.btn.view-btn:hover {
+    background: #141516;
+}
+
+.no-users {
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+    margin-top: 20px;
+}
+.edit-button {
+    background-color: #e2b503d2; /* Change button background color */
+    color: white; /* Change text color */
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.edit-button:hover {
+    background-color: #937801; /* Darker shade on hover */
+}
+
+/* Change link color */
+a {
+    text-decoration: none; /* Removes underline */
+    color: #f1dd03; /* Change link color */
+}
+
+a:hover {
+    color: #00090f; /* Change link color on hover */
+}
+.default-profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #007bff;
+    margin-bottom: 10px;
+}

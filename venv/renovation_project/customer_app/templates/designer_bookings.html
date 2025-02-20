@@ -1,0 +1,40 @@
+{% load static %}
+{% include 'header.html' %}
+
+<link rel="stylesheet" href="{% static 'css/table.css' %}">
+<body>
+
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Designer</th>
+            <th>Room</th>
+            <th>Booking Date</th>
+            <th>Status</th>
+            <th>Details</th>
+        </tr>
+        
+        {% if bookings %}
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ booking.designer.first_name }} {{ booking.designer.last_name }}</td>
+                <td>{{ booking.room_type|title }}</td>
+                <td>{{ booking.booking_date|date:"Y-m-d H:i" }}</td>
+                <td>{{ booking.status|title }}</td>
+                <td>
+                    <a href="{% url 'designer_booking_detail' booking.id %}" class="btn btn-primary">Details</a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="6" style="text-align: center;">No bookings found.</td>
+            </tr>
+        {% endif %}
+        
+    </table>
+
+</body>
+
+{% include 'footer.html' %}

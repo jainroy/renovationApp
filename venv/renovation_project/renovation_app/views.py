@@ -46,12 +46,15 @@ def user_login(request):
             user = authenticate(request, username = form.cleaned_data['username'], password = form.cleaned_data['password'])
             if user is not None:
                 login(request, user)
-                users = Register.objects.get(username = user)
-                request.session['ut'] = users.usertype
-                request.session['uid'] = users.id
-                request.session['uname'] = users.username
-                messages.success(request, "login successful", extra_tags = "success")
-                return redirect('/')
+                if user.is_approved == True:
+                    users = Register.objects.get(username = user)
+                    request.session['ut'] = users.usertype
+                    request.session['uid'] = users.id
+                    request.session['uname'] = users.username
+                    messages.success(request, "login successful", extra_tags = "success")
+                    return redirect('/')
+                else:
+                    messages.error(request, "Try Loging in after the Approval confirmation mail", extra_tags = "error")
             else:
                 messages.error(request, "inavalid username or password", extra_tags = "error")
         else:
@@ -185,6 +188,7 @@ def designer_registration(request):
             if form.is_valid():
                 designer = form.save(commit = False)
                 designer.usertype = "designer"
+                designer.is_approved=False
                 designer.password = make_password(form.cleaned_data['password'])
                 designer.save()
                 messages.success(request, "Registration successful", extra_tags = "success")
@@ -227,10 +231,11 @@ def contractor_registration(request):
                 messages.error(request, "User already exists!", extra_tags = "error")
                 return redirect('user_login')
             if form.is_valid():
-                designer = form.save(commit = False)
-                designer.usertype = "contractor"
-                designer.password = make_password(form.cleaned_data['password'])
-                designer.save()
+                contractor = form.save(commit = False)
+                contractor.usertype = "contractor"
+                contractor.is_approved=False
+                contractor.password = make_password(form.cleaned_data['password'])
+                contractor.save()
                 messages.success(request, "Registration successful", extra_tags = "success")
                 return redirect('user_login')
             else:
@@ -238,7 +243,7 @@ def contractor_registration(request):
                 form = DesignerRegisterForm()
                 return render (request, 'contractor_registration.html', {'form' : form, 'title': 'Register'})
     else:
-        form = DesignerRegisterForm()
+        form = ContractorRegisterForm()
     return render (request, 'contractor_registration.html', {'form' : form, 'title': 'Register'})
 
 def contractor_profile(request):

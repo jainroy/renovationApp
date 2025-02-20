@@ -1,0 +1,36 @@
+{% load static %}
+{% include 'header.html' %}
+<link rel="stylesheet" href="{% static 'css/available_designers.css' %}">
+
+<body>
+    <div class="designer-container">
+        {% if designers %}
+            {% for designer in designers %}
+                <div class="designer-card">
+                    <div class="card-content">
+                        <!-- designer Profile Image -->
+                        {% if designer.image %}
+                        <img src="{{ designer.image.url }}" alt="Profile Image" class="profile-img">
+                        {% else %}
+                        <img class="default-profile-picture" src="{% static 'images/default_profile_picture.png' %}" alt="Designer Profile Picture">
+                        {% endif %}
+                        <!-- designer Details -->
+                        <h2>{{ designer.first_name }} {{ designer.last_name }}</h2>
+                        <p><strong>Username:</strong> {{ designer.username }}</p>
+                        <p><strong>Email:</strong> {{ designer.email }}</p>
+                        <p><strong>Contact:</strong> {{ designer.contact }}</p>
+                        {% if designer.license_no %}
+                        <p><strong>License No:</strong> {{ designer.license_no }}</p>
+                        {% endif %}
+                        <!-- View Details Button -->
+                        <a href="{% url 'detailed_info_designer' designer.id %}"><button class="edit-button">View Details</button></a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-users">No designers found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+{% include 'footer.html' %}
