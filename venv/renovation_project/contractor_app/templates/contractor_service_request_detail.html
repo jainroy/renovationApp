@@ -1,8 +1,6 @@
 {% load static %}
 {% include 'header.html' %}
-
 <link rel="stylesheet" href="{% static 'css/booking_detail.css' %}">
-
 <body>
     <div class="booking-container">
         <h2>Request Details</h2>
@@ -17,7 +15,6 @@
                 <p><strong>Wall Finish:</strong> {{ booking.wall_finish|title|default:"Not Specified" }}</p>
                 <p><strong>Ceiling Type:</strong> {{ booking.ceiling_type|title|default:"Not Specified" }}</p>
             </div>
-
             <!-- Right Column -->
             <div class="booking-column">
                 <p><strong>Lighting Preference:</strong> {{ booking.lighting_preference|title|default:"Not Specified" }}</p>
@@ -29,7 +26,6 @@
                 <p><strong>Progress:</strong> {{ booking.progress }} %</p>
             </div>
         </div>
-
         <p><strong>Description:</strong> {{ booking.description|default:"No description provided." }}</p>
         <div class="button-container">
             {% if booking.status == 'pending' %}
@@ -47,5 +43,4 @@
         </div>        
     </div>
 </body>
-
 {% include 'footer.html' %}
