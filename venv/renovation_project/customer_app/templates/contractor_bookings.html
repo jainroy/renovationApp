@@ -7,8 +7,8 @@
     <table>
         <tr>
             <th>No</th>
-            <th>Designer</th>
-            <th>Room</th>
+            <th>Contractor</th>
+            <th>Project Type</th>
             <th>Booking Date</th>
             <th>Status</th>
             <th>Actions</th>
@@ -18,12 +18,12 @@
             {% for booking in bookings %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ booking.designer.first_name }} {{ booking.designer.last_name }}</td>
-                <td>{{ booking.room_type|title }}</td>
+                <td>{{ booking.contractor.first_name }} {{ booking.contractor.last_name }}</td>
+                <td>{{ booking.project_type|title }}</td>
                 <td>{{ booking.booking_date|date:"d-m-Y (h:i A)" }}</td>
                 <td>{{ booking.status|title }}</td>
                 <td>
-                    <a href="{% url 'designer_booking_detail' booking.id %}" class="btn btn-primary">Details</a>
+                    <a href="{% url 'contractor_booking_detail' booking.id %}" class="btn btn-primary">Details</a>
                 </td>
             </tr>
             {% endfor %}

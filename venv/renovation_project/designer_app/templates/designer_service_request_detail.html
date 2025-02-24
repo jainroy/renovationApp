@@ -5,7 +5,7 @@
 
 <body>
     <div class="booking-container">
-        <h2>Booking Details</h2>
+        <h2>Request Details</h2>
         <div class="booking-card">
             <!-- Left Column -->
             <div class="booking-column">
@@ -31,10 +31,18 @@
 
         <p><strong>Description:</strong> {{ booking.description|default:"No description provided." }}</p>
         <div class="button-container">
-            {% if booking.status in 'pending,confirmed' %}
-            <a href="{% url 'cancel_designer_booking' booking.id %}" class="btn-cancel">Cancel booking</a>
+            {% if booking.status == 'pending' %}
+            <div class="custom-dropdown">
+                <button class="custom-dropdown-toggle" type="button" id="bookingActionDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Take Action ▼
+                </button>
+                <ul class="custom-dropdown-menu" aria-labelledby="bookingActionDropdown">
+                    <li><a class="custom-dropdown-item" href="{% url 'approve_designer_request' booking.id %}">Approve Request</a></li>
+                    <li><a class="custom-dropdown-item reject-item" href="{% url 'reject_designer_request' booking.id %}">Reject Request</a></li>
+                </ul>
+            </div>
             {% endif %}
-            <a href="{% url 'designer_bookings' %}" class="btn-back">Back</a>
+            <a href="{% url 'designer_service_requests' %}" class="btn-back">Back</a>
         </div>        
     </div>
 </body>

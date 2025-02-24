@@ -11,6 +11,7 @@ class DesignerBooking(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('confirmed', 'Confirmed'),
+        ('rejected', 'Rejected'),
         ('in_progress', 'In Progress'),
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled'),
@@ -32,8 +33,8 @@ class DesignerBooking(models.Model):
         ('scandinavian', 'Scandinavian'),
         ('bohemian', 'Bohemian'),
         ('rustic', 'Rustic'),
-        ('art_deco', 'Art Deco'),
-        ('mid_century', 'Mid-Century'),
+        ('art deco', 'Art Deco'),
+        ('mid century', 'Mid-Century'),
         ('transitional', 'Transitional'),
     ]
 
@@ -46,8 +47,8 @@ class DesignerBooking(models.Model):
         ('shop', 'Shop'),
         ('hall', 'Hall'),
         ('entryway', 'Entryway'),
-        ('laundry_room', 'Laundry Room'),
-        ('home_theater', 'Home Theater'),
+        ('laundry room', 'Laundry Room'),
+        ('home theater', 'Home Theater'),
         ('library', 'Library'),
         ('garage', 'Garage'),
         ('gym', 'Gym'),
@@ -72,7 +73,7 @@ class DesignerBooking(models.Model):
     ]
     WALL_PAINT_COLOR_CHOICES = [
         ('white', 'White'),
-        ('off_white', 'Off White'),
+        ('off white', 'Off White'),
         ('beige', 'Beige'),
         ('gray', 'Gray'),
         ('blue', 'Blue'),
@@ -98,8 +99,8 @@ class DesignerBooking(models.Model):
     ]
 
     LIGHTING_PREFERENCE_CHOICES = [
-        ('warm_white', 'Warm White'),
-        ('cool_white', 'Cool White'),
+        ('warm white', 'Warm White'),
+        ('cool white', 'Cool White'),
         ('daylight', 'Daylight'),
         ('ambient', 'Ambient Lighting'),
         ('task', 'Task Lighting'),
@@ -123,3 +124,94 @@ class DesignerBooking(models.Model):
     ceiling_type = models.CharField(max_length=100, blank=True, null=True, choices=CEILING_TYPE_CHOICES)  
     lighting_preference = models.CharField(max_length=100, blank=True, null=True, choices=LIGHTING_PREFERENCE_CHOICES)  
 
+class ContractorBooking(models.Model):
+    user = models.ForeignKey(Register, on_delete=models.CASCADE, related_name='contractor_user_bookings')  # Client booking the contractor
+    contractor = models.ForeignKey(Register, on_delete=models.CASCADE, related_name='contractor_bookings')  # Contractor being booked
+    description = models.TextField(blank=True, null=True)  
+    booking_date = models.DateTimeField(auto_now_add=True)  
+    scheduled_date = models.DateField(blank=True, null=True)  
+
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('confirmed', 'Confirmed'),
+        ('rejected', 'Rejected'),
+        ('in_progress', 'In Progress'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
+    ]
+
+    status = models.CharField(max_length=20, default='pending', choices=STATUS_CHOICES)  # Default can be set in the form
+    progress = models.IntegerField(default=0, help_text="Progress in percentage (0-100)")  # Default value for progress
+    
+    PROJECT_TYPE_CHOICES = [
+        ('residential', 'Residential'),
+        ('commercial', 'Commercial'),
+        ('industrial', 'Industrial'),
+        ('renovation', 'Renovation'),
+        ('landscaping', 'Landscaping'),
+        ('infrastructure', 'Infrastructure'),
+    ]
+
+    ROOM_TYPE_CHOICES = [
+        ('living_room', 'Living Room'),
+        ('bedroom', 'Bedroom'),
+        ('kitchen', 'Kitchen'),
+        ('bathroom', 'Bathroom'),
+        ('office', 'Office'),
+        ('shop', 'Shop'),
+        ('hall', 'Hall'),
+        ('garage', 'Garage'),
+        ('balcony', 'Balcony'),
+        ('terrace', 'Terrace'),
+    ]
+
+    FLOOR_TYPE_CHOICES = [
+        ('tile', 'Tile'),
+        ('marble', 'Marble'),
+        ('wooden', 'Wooden'),
+        ('vinyl', 'Vinyl'),
+        ('laminate', 'Laminate'),
+        ('concrete', 'Concrete'),
+    ]
+    
+    WALL_FINISH_CHOICES = [
+        ('paint', 'Paint'),
+        ('wallpaper', 'Wallpaper'),
+        ('stone cladding', 'Stone Cladding'),
+        ('wood paneling', 'Wood Paneling'),
+        ('tiles', 'Tiles'),
+    ]
+
+    CEILING_TYPE_CHOICES = [
+        ('flat', 'Flat Ceiling'),
+        ('vaulted', 'Vaulted Ceiling'),
+        ('tray', 'Tray Ceiling'),
+        ('beam', 'Beam Ceiling'),
+        ('custom', 'Custom Design'),
+    ]
+
+    LIGHTING_PREFERENCE_CHOICES = [
+        ('warm white', 'Warm White'),
+        ('cool white', 'Cool White'),
+        ('daylight', 'Daylight'),
+        ('chandelier', 'Chandelier'),
+        ('recessed', 'Recessed Lighting'),
+        ('pendant', 'Pendant Lighting'),
+    ]
+    
+    BUDGET_RANGE_CHOICES = [
+        ('low', 'Low Budget'),
+        ('medium', 'Medium Budget'),
+        ('high', 'High Budget'),
+        ('luxury', 'Luxury'),
+    ]
+
+    # Project details
+    project_type = models.CharField(max_length=50, choices=PROJECT_TYPE_CHOICES)  
+    room_type = models.CharField(max_length=50, choices=ROOM_TYPE_CHOICES, blank=True, null=True)  
+    room_area = models.DecimalField(max_digits=6, decimal_places=2, help_text="Area in square feet")  
+    floor_type = models.CharField(max_length=100, blank=True, null=True, choices=FLOOR_TYPE_CHOICES)  
+    wall_finish = models.CharField(max_length=50, blank=True, null=True, choices=WALL_FINISH_CHOICES)  
+    ceiling_type = models.CharField(max_length=100, blank=True, null=True, choices=CEILING_TYPE_CHOICES)  
+    lighting_preference = models.CharField(max_length=100, blank=True, null=True, choices=LIGHTING_PREFERENCE_CHOICES)  
+    budget_range = models.CharField(max_length=50, choices=BUDGET_RANGE_CHOICES)

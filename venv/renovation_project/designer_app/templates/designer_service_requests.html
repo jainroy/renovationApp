@@ -1,0 +1,42 @@
+{% load static %}
+{% include 'header.html' %}
+
+<link rel="stylesheet" href="{% static 'css/table.css' %}">
+<body>
+
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Customer</th>
+            <th>Room</th>
+            <th>Design</th>
+            <th>Area</th>
+            <th>Booking Date</th>
+            <th>Actions</th>
+        </tr>
+        
+        {% if requests %}
+            {% for request in requests %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ request.user.first_name }} {{ request.user.last_name }}</td>
+                <td>{{ request.room_type|title }}</td>
+                <td>{{ request.design_type|title }}</td>
+                <td>{{ request.room_area|title }} sq. ft.</td>
+                <td>{{ request.booking_date|date:"d-m-Y (h:i A)" }}</td>
+                <td>
+                    <a href="{% url 'designer_service_request_detail' request.id %}" class="btn btn-primary">Details</a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="8" style="text-align: center;">No requests found.</td>
+            </tr>
+        {% endif %}
+        
+    </table>
+
+</body>
+
+{% include 'footer.html' %}

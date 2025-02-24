@@ -1,0 +1,61 @@
+{% load static %}
+{% include 'header.html' %}
+<link rel="stylesheet" href="{% static 'css/contractor_profile.css' %}">
+
+<section class="hero-wrap" style="background-image: url('{% static "images/bg_1.jpg" %}');" data-section="home">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters align-items-center justify-content-center full-height">
+      <div class="col-md-10 profile-container">
+
+        <!-- Left Section (Profile Image & Name) -->
+        <div class="profile-left">
+          <div class="profile-image">
+            {% if contractor.image %}
+            <img src="{{ contractor.image.url }}" alt="Contractor Profile Picture">
+            {% else %}
+            <img src="{% static 'images/default_profile_picture.png' %}" alt="Contractor Profile Picture">
+            {% endif %}
+          </div>
+          <h2 class="profile-name">{{ contractor.first_name }} {{ contractor.last_name }}</h2>
+        </div>
+
+        <!-- Middle Section (First 4 Info Lines) -->
+        <div class="profile-info">
+          <p><strong>Username:</strong> {{ contractor.username }}</p>
+          <p><strong>Email:</strong> {{ contractor.email }}</p>
+          <p><strong>Contact:</strong> {{ contractor.contact }}</p>
+          <p><strong>Experience:</strong> {{ contractor.experience }} Years</p>
+          <p><strong>License No:</strong> {{ contractor.license_no }}</p>
+        </div>
+
+        <!-- Right Section (Remaining Info & Button) -->
+        <div class="profile-right">
+          {% if contractor.location %}
+          <p><strong>Location:</strong> <a href="{{ contractor.location }}" target="_blank" rel="noopener noreferrer">View in G Maps</a></p>
+          {% else %}
+          <p><strong>Location:</strong> <a class="link" href=""> Not found</a></p>
+          {% endif %}
+
+          {% if contractor.specialization %}
+          <p><strong>Specialization:</strong> {{ contractor.specialization }}</p>
+          {% else %}
+          <p><strong>Specialization:</strong> <a class="link" href=""> Not found</a></p>
+          {% endif %}
+          
+          {% if contractor.portfolio %}
+          <p><strong>Portfolio:</strong> <a href="{{ contractor.portfolio.url }}" target="_blank" rel="noopener noreferrer">View PDF</a></p>
+          {% else %}
+          <p><strong>Portfolio:</strong> <a class="link" href=""> Not found</a></p>
+          {% endif %}
+
+          <a href="{% url 'contractor_booking_form' contractor.id %}">
+            <button class="edit-button">Book Now</button>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% include 'footer.html' %}

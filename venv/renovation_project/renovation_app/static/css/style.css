@@ -9582,3 +9582,7 @@ textarea.form-control {
     font-weight: bold;
     cursor: pointer;
 }
+.dropdown-item:hover {
+  background-color: #28a745; /* Example: blue background */
+  color: white; /* Example: white text */
+}

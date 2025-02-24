@@ -23,7 +23,7 @@
                         <p><strong>License No:</strong> {{ contractor.license_no }}</p>
                         {% endif %}
                         <!-- View Details Button -->
-                        <a href=""><button class="edit-button">View Details</button></a>
+                        <a href="{% url 'detailed_info_contractor' contractor.id %}"><button class="edit-button">View Details</button></a>
                     </div>
                 </div>
             {% endfor %}

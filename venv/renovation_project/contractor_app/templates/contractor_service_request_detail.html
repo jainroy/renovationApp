@@ -5,16 +5,16 @@
 
 <body>
     <div class="booking-container">
-        <h2>Booking Details</h2>
+        <h2>Request Details</h2>
         <div class="booking-card">
             <!-- Left Column -->
             <div class="booking-column">
-                <p><strong>Designer:</strong> {{ booking.designer.first_name }} {{ booking.designer.last_name }}</p>
+                <p><strong>Contractor:</strong> {{ booking.contractor.first_name }} {{ booking.contractor.last_name }}</p>
                 <p><strong>Client:</strong> {{ booking.user.first_name }} {{ booking.user.last_name }}</p>
+                <p><strong>Project Type:</strong> {{ booking.project_type|title }}</p>
                 <p><strong>Room Type:</strong> {{ booking.room_type|title }}</p>
-                <p><strong>Design Type:</strong> {{ booking.design_type|title }}</p>
                 <p><strong>Floor Type:</strong> {{ booking.floor_type|title }}</p>
-                <p><strong>Wall Paint Color:</strong> {{ booking.wall_paint_color|title|default:"Not Specified" }}</p>
+                <p><strong>Wall Finish:</strong> {{ booking.wall_finish|title|default:"Not Specified" }}</p>
                 <p><strong>Ceiling Type:</strong> {{ booking.ceiling_type|title|default:"Not Specified" }}</p>
             </div>
 
@@ -22,6 +22,7 @@
             <div class="booking-column">
                 <p><strong>Lighting Preference:</strong> {{ booking.lighting_preference|title|default:"Not Specified" }}</p>
                 <p><strong>Room Area:</strong> {{ booking.room_area }} sq. ft.</p>
+                <p><strong>Budget Range:</strong> {{ booking.budget_range|title }}</p>
                 <p><strong>Booking Date:</strong> {{ booking.booking_date|date:"d-m-Y (h:i A)" }}</p>
                 <p><strong>Scheduled Date:</strong> {{ booking.scheduled_date|default:"Not Scheduled" }}</p>
                 <p><strong>Status:</strong> <span class="status {{ booking.status|lower }}">{{ booking.status|title }}</span></p>
@@ -31,10 +32,18 @@
 
         <p><strong>Description:</strong> {{ booking.description|default:"No description provided." }}</p>
         <div class="button-container">
-            {% if booking.status in 'pending,confirmed' %}
-            <a href="{% url 'cancel_designer_booking' booking.id %}" class="btn-cancel">Cancel booking</a>
+            {% if booking.status == 'pending' %}
+            <div class="custom-dropdown">
+                <button class="custom-dropdown-toggle" type="button" id="bookingActionDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Take Action ▼
+                </button>
+                <ul class="custom-dropdown-menu" aria-labelledby="bookingActionDropdown">
+                    <li><a class="custom-dropdown-item" href="{% url 'approve_contractor_request' booking.id %}">Approve Request</a></li>
+                    <li><a class="custom-dropdown-item reject-item" href="{% url 'reject_contractor_request' booking.id %}">Reject Request</a></li>
+                </ul>
+            </div>
             {% endif %}
-            <a href="{% url 'designer_bookings' %}" class="btn-back">Back</a>
+            <a href="{% url 'contractor_service_requests' %}" class="btn-back">Back</a>
         </div>        
     </div>
 </body>
