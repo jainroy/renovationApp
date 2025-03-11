@@ -14,7 +14,7 @@
             {% if designer.image %}
             <img src="{{ designer.image.url }}" alt="Designer Profile Picture">
             {% else %}
-            <img src="{% static 'default_profile_picture.png' %}" alt="Designer Profile Picture">
+            <img src="{% static 'images/default_profile_picture.png' %}" alt="Designer Profile Picture">
             {% endif %}
           </div>
           <h2 class="profile-name">{{ designer.first_name }} {{ designer.last_name }}</h2>

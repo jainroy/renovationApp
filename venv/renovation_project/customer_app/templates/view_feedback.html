@@ -1,0 +1,31 @@
+{% load static %}
+{% include 'header.html' %}
+<link rel="stylesheet" href="{% static 'css/feedback.css' %}">
+
+<div class="container feedback-section">
+    <h1 class="text-center">USER FEEDBACK</h1>
+    {% if feedbacks %}
+        <div class="feedback-list">
+            {% for feedback in feedbacks %}
+                <div class="feedback-list-item">
+                    <strong>{{ feedback.user.username }}</strong>
+                    <p>
+                        <!-- Displaying star ratings with gold stars based on feedback.rating -->
+                        <span class="star-rating">
+                            {% for i in "12345"|slice:":5" %}
+                                <span class="star {% if forloop.counter <= feedback.rating %}selected{% endif %}" data-value="{{ forloop.counter }}">&#9733;</span>
+                            {% endfor %}
+                        </span>
+                        ({{ feedback.rating }}⭐)
+                    </p>
+                    <p>{{ feedback.message }}</p>
+                    <small>{{ feedback.created_at }}</small>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center feedback-no-message">No feedback available.</p>
+    {% endif %}
+</div>
+
+{% include 'footer.html' %}

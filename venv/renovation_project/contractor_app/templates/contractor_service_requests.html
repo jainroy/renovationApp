@@ -2,43 +2,47 @@
 {% include 'header.html' %}
 
 <link rel="stylesheet" href="{% static 'css/table.css' %}">
-<body>
 
+<body>
     <table>
         <tr>
             <th>No</th>
             <th>Customer</th>
-            <th>Project Type</th>
-            <th>Room</th>
-            <th>Area</th>
-            <th>Budget Range</th>
+            <th>Rooms</th>
             <th>Booking Date</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
         
         {% if requests %}
             {% for request in requests %}
             <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ request.user.first_name }} {{ request.user.last_name }}</td>
-                <td>{{ request.project_type|title }}</td>
-                <td>{{ request.room_type|title }}</td>
-                <td>{{ request.room_area }} sq. ft.</td>
-                <td>{{ request.budget_range|title }}</td>
-                <td>{{ request.booking_date|date:"d-m-Y (h:i A)" }}</td>
-                <td>
-                    <a href="{% url 'contractor_service_request_detail' request.id %}" class="btn btn-primary">Details</a>
-                </td>
-            </tr>
+                <td rowspan="{{ request.rooms.count }}">{{ forloop.counter }}</td>
+                <td rowspan="{{ request.rooms.count }}">{{ request.user.first_name }} {{ request.user.last_name }}</td>
+
+                {% for room in request.rooms.all %}
+                    {% if not forloop.first %} <tr> {% endif %}
+                        <td>
+                            <strong>Room:</strong> {{ room.room_type|title }} <br>
+                            <strong>Project:</strong> {{ room.contract_preference.project_type|title|default:"N/A" }} <br>
+                            <strong>Area:</strong> {{ room.room_area }} sq. ft.
+                        </td>
+                        {% if forloop.first %}
+                            <td rowspan="{{ request.rooms.count }}">{{ request.booking_date|date:"d-m-Y (h:i A)" }}</td>
+                            <td rowspan="{{ request.rooms.count }}">{{ request.status|title }}</td>
+                            <td rowspan="{{ request.rooms.count }}">
+                                <a href="{% url 'contractor_service_request_detail' request.id %}" class="btn btn-primary">Details</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
             {% endfor %}
         {% else %}
             <tr>
-                <td colspan="8" style="text-align: center;">No requests found.</td>
+                <td colspan="5" style="text-align: center;">No requests found.</td>
             </tr>
         {% endif %}
-        
     </table>
-
 </body>
 
 {% include 'footer.html' %}

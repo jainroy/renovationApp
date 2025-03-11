@@ -1,47 +1,92 @@
 {% load static %}
 {% include 'header.html' %}
-<link rel="stylesheet" href="{% static 'css/registration.css' %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+    <title>Designer Booking</title>
+    <link rel="stylesheet" href="{% static 'css/designer_booking_form.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
-
 </head>
 <body>
-    <section class="hero-wrap" style="background-image: url('{% static "images/bg_1.jpg" %}');">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="registration-container">
-                <h1>SQUARE.</h1>
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="message {{ message.tags }}">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
-                <form action="" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-            
-            {{ form.non_field_errors }}
+    <div class="form-container">
+        <div class="booking-form">
+            <h1>Book Your Contractor</h1>
 
-            {% for field in form %}
-                <div class="form-group">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {{ field }}
-                    {% if field.errors %}
-                        <div class="error-list">
-                            {% for error in field.errors %}
-                                <p class="error">{{ error }}</p>
-                            {% endfor %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <!-- Management form (for formsets) -->
+                {% for hidden in formset.management_form %}  
+                    {{ hidden }}  
+                {% endfor %}
+                {{ formset.non_field_errors }}
+
+                <div id="room-forms-container">
+                    {% for form in formset %}
+                        <div class="room-form">
+                            <div class="form-grid">
+                                {% for field in form %}
+                                    <div class="form-group">
+                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                        {{ field }}
+                                        {% if field.errors %}
+                                            <div class="error-list">
+                                                {% for error in field.errors %}
+                                                    <p class="error">{{ error }}</p>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <button type="button" class="remove-room-btn">Remove Room</button>
                         </div>
-                    {% endif %}
+                    {% endfor %}
                 </div>
-            {% endfor %}
-            
-                    <button type="submit">{{ title }}</button>
-                </form>
-            </div>
+
+                <button type="button" id="add-room-btn" class="secondary-btn">Add More Rooms</button>
+                <button type="submit" class="primary-btn">Submit</button>
+            </form>
         </div>
-    </section>
+    </div>
+
+    <script>
+        document.getElementById('add-room-btn').addEventListener('click', function() {
+            var roomFormContainer = document.getElementById('room-forms-container');
+            var totalForms = document.getElementById('id_rooms-TOTAL_FORMS');
+            var formIndex = Number(totalForms.value);
+
+            var roomFormTemplate = document.querySelector('.room-form');
+            var clonedRoomForm = roomFormTemplate.cloneNode(true);
+
+            var inputs = clonedRoomForm.querySelectorAll('input, textarea, select');
+            inputs.forEach(function(input) {
+                var oldName = input.name;
+                if (oldName) {
+                    input.name = oldName.replace(/-\d+-/, `-${formIndex}-`);
+                    input.id = input.id.replace(/-\d+-/, `-${formIndex}-`);
+                    input.value = ''; 
+                }
+            });
+
+            totalForms.value = formIndex + 1;
+            roomFormContainer.appendChild(clonedRoomForm);
+        });
+
+        document.getElementById('room-forms-container').addEventListener('click', function(event) {
+            if (event.target && event.target.classList.contains('remove-room-btn')) {
+                var roomForm = event.target.closest('.room-form');
+                roomForm.remove();
+                var totalForms = document.getElementById('id_rooms-TOTAL_FORMS');
+                totalForms.value = Number(totalForms.value) - 1;
+            }
+        });
+    </script>
 </body>
 {% include 'footer.html' %}

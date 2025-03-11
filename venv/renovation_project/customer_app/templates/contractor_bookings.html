@@ -2,13 +2,13 @@
 {% include 'header.html' %}
 
 <link rel="stylesheet" href="{% static 'css/table.css' %}">
-<body>
 
+<body>
     <table>
         <tr>
             <th>No</th>
             <th>Contractor</th>
-            <th>Project Type</th>
+            <th>Rooms</th>
             <th>Booking Date</th>
             <th>Status</th>
             <th>Actions</th>
@@ -17,24 +17,32 @@
         {% if bookings %}
             {% for booking in bookings %}
             <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ booking.contractor.first_name }} {{ booking.contractor.last_name }}</td>
-                <td>{{ booking.project_type|title }}</td>
-                <td>{{ booking.booking_date|date:"d-m-Y (h:i A)" }}</td>
-                <td>{{ booking.status|title }}</td>
-                <td>
-                    <a href="{% url 'contractor_booking_detail' booking.id %}" class="btn btn-primary">Details</a>
-                </td>
-            </tr>
+                <td rowspan="{{ booking.rooms.count }}">{{ forloop.counter }}</td>
+                <td rowspan="{{ booking.rooms.count }}">{{ booking.contractor.first_name }} {{ booking.contractor.last_name }}</td>
+
+                {% for room in booking.rooms.all %}
+                    {% if not forloop.first %} <tr> {% endif %}
+                        <td>
+                            <strong>Room:</strong> {{ room.room_type|title }} <br>
+                            <strong>Project:</strong> {{ room.contract_preference.project_type|title|default:"N/A" }} <br>
+                            <strong>Area:</strong> {{ room.room_area }} sq. ft.
+                        </td>
+                        {% if forloop.first %}
+                            <td rowspan="{{ booking.rooms.count }}">{{ booking.booking_date|date:"d-m-Y (h:i A)" }}</td>
+                            <td rowspan="{{ booking.rooms.count }}">{{ booking.status|title }}</td>
+                            <td rowspan="{{ booking.rooms.count }}">
+                                <a href="{% url 'contractor_booking_detail' booking.id %}" class="btn btn-primary">Details</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
             {% endfor %}
         {% else %}
             <tr>
                 <td colspan="6" style="text-align: center;">No bookings found.</td>
             </tr>
         {% endif %}
-        
     </table>
-
 </body>
 
 {% include 'footer.html' %}

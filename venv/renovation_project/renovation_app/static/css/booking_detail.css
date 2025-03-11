@@ -1,3 +1,16 @@
+.room-container {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f4f4f4;
+    border-radius: 10px;
+}
+
+h3 {
+    text-align: center;
+    color: #444;
+}
+
+
 .booking-container {
     max-width: 800px;
     margin: 40px auto;
@@ -6,7 +19,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 150px;
-    margin-bottom: 100px;
+    margin-bottom: 200px;
 }
 
 h2 {
@@ -105,12 +118,26 @@ h2 {
 }
 
 .custom-dropdown-toggle {
-    padding: 8px 12px;
+    padding: 5px 10px;
     font-size: 16px;
+    /* font-weight: bold; */
     cursor: pointer;
-    border: 1px solid #ccc;
-    background-color: rgb(228, 207, 99);
-    border-radius: 4px;
+    border: none;
+    background-color: #007bff; /* Bright, attention-grabbing blue */
+    border-radius: 6px;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-width: 100px;
+}
+
+.custom-dropdown-toggle:hover {
+    background-color: #0056b3; /* Darker blue for hover */
+    color: #f8f9fa; /* Light color for contrast */
+}
+
+.custom-dropdown-toggle:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.7); /* Subtle focus effect */
 }
 
 .custom-dropdown-menu {
@@ -134,4 +161,20 @@ h2 {
 
 .custom-dropdown:hover .custom-dropdown-menu {
     display: block;
+}
+
+.btn-schedule {
+    background-color: #1d88fb;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.btn-schedule:hover {
+    background-color: #0056b3;
 }

@@ -14,4 +14,7 @@ urlpatterns = [
     path('contractor_bookings', views.contractor_bookings,name="contractor_bookings"),
     path('contractor_booking_detail/<int:id>/',views.contractor_booking_detail,name="contractor_booking_detail"),
     path('cancel_contractor_booking/<int:id>/',views.cancel_contractor_booking,name="cancel_contractor_booking"),
+    path('add_feedback/<int:id>/', views.add_feedback, name='add_feedback'),
+    path('add_contractor_feedback/<int:id>/', views.add_contractor_feedback, name='add_contractor_feedback'),
+    path('view_feedback/<int:id>/', views.view_feedback, name='view_feedback'),
 ]

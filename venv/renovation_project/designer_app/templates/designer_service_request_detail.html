@@ -11,17 +11,6 @@
             <div class="booking-column">
                 <p><strong>Designer:</strong> {{ booking.designer.first_name }} {{ booking.designer.last_name }}</p>
                 <p><strong>Client:</strong> {{ booking.user.first_name }} {{ booking.user.last_name }}</p>
-                <p><strong>Room Type:</strong> {{ booking.room_type|title }}</p>
-                <p><strong>Design Type:</strong> {{ booking.design_type|title }}</p>
-                <p><strong>Floor Type:</strong> {{ booking.floor_type|title }}</p>
-                <p><strong>Wall Paint Color:</strong> {{ booking.wall_paint_color|title|default:"Not Specified" }}</p>
-                <p><strong>Ceiling Type:</strong> {{ booking.ceiling_type|title|default:"Not Specified" }}</p>
-            </div>
-
-            <!-- Right Column -->
-            <div class="booking-column">
-                <p><strong>Lighting Preference:</strong> {{ booking.lighting_preference|title|default:"Not Specified" }}</p>
-                <p><strong>Room Area:</strong> {{ booking.room_area }} sq. ft.</p>
                 <p><strong>Booking Date:</strong> {{ booking.booking_date|date:"d-m-Y (h:i A)" }}</p>
                 <p><strong>Scheduled Date:</strong> {{ booking.scheduled_date|default:"Not Scheduled" }}</p>
                 <p><strong>Status:</strong> <span class="status {{ booking.status|lower }}">{{ booking.status|title }}</span></p>
@@ -29,7 +18,40 @@
             </div>
         </div>
 
-        <p><strong>Description:</strong> {{ booking.description|default:"No description provided." }}</p>
+        <!-- Room Details -->
+        {% for room in booking.rooms.all %}
+        <div class="room-container">
+            <h3>Room {{ forloop.counter }}</h3>
+            <div class="booking-card">
+                <div class="booking-column">
+                    <p><strong>Room Type:</strong> {{ room.room_type|title }}</p>
+                    <p><strong>Room Area:</strong> {{ room.room_area }} sq. ft.</p>
+                    {% if room.design_preference %}
+                        <p><strong>Design Type:</strong> {{ room.design_preference.design_type|title }}</p>
+                        <p><strong>Floor Type:</strong> {{ room.design_preference.floor_type|title }}</p>
+                        <p><strong>Wall Paint Color:</strong> {{ room.design_preference.wall_paint_color|title|default:"Not Specified" }}</p>
+                        <p><strong>Ceiling Type:</strong> {{ room.design_preference.ceiling_type|title|default:"Not Specified" }}</p>
+                        <p><strong>Lighting Preference:</strong> {{ room.design_preference.lighting_preference|title|default:"Not Specified" }}</p>
+                        <p><strong>Description:</strong> {{ room.design_preference.description|title|default:"No description provided." }}</p>
+
+                    {% else %}
+                        <p>No design preferences specified.</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% if booking.status == 'confirmed' %}
+                <form method="POST" action="{% url 'schedule_designer_project' booking.id %}">
+                    {% csrf_token %}
+                    <br>
+                    <div class="schedule-container">
+                        <label for="scheduled_date"><strong>Schedule Project Date:</strong></label>
+                        <input type="date" id="scheduled_date" name="scheduled_date" value="{{ booking.scheduled_date|date:'Y-m-d' }}" required>
+                        <button type="submit" class="btn-schedule">Schedule</button>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+        {% endfor %}
         <div class="button-container">
             {% if booking.status == 'pending' %}
             <div class="custom-dropdown">
@@ -41,6 +63,30 @@
                     <li><a class="custom-dropdown-item reject-item" href="{% url 'reject_designer_request' booking.id %}">Reject Request</a></li>
                 </ul>
             </div>
+            {% elif booking.status != 'completed' %}
+            {% if booking.scheduled_date %}
+                    {% if booking.status == 'confirmed' %}
+                        <a class="custom-dropdown-toggle" href="{% url 'start_designer_project' booking.id %}">
+                            Start Project
+                        </a>
+                    {% elif booking.progress < 25 %}
+                        <a class="custom-dropdown-toggle" href="{% url 'update_designer_booking_progress' booking.id 25 %}">
+                            Update Progress to 25%
+                        </a>
+                    {% elif booking.progress < 50 %}
+                        <a class="custom-dropdown-toggle" href="{% url 'update_designer_booking_progress' booking.id 50 %}">
+                            Update Progress to 50%
+                        </a>
+                    {% elif booking.progress < 75 %}
+                        <a class="custom-dropdown-toggle" href="{% url 'update_designer_booking_progress' booking.id 75 %}">
+                            Update Progress to 75%
+                        </a>
+                    {% elif booking.progress < 100 %}
+                        <a class="custom-dropdown-toggle" href="{% url 'update_designer_booking_progress' booking.id 100 %}">
+                            Update Progress to 100%
+                        </a>
+                    {% endif %}
+                {% endif %}
             {% endif %}
             <a href="{% url 'designer_service_requests' %}" class="btn-back">Back</a>
         </div>        

@@ -11,18 +11,6 @@
             <div class="booking-column">
                 <p><strong>Contractor:</strong> {{ booking.contractor.first_name }} {{ booking.contractor.last_name }}</p>
                 <p><strong>Client:</strong> {{ booking.user.first_name }} {{ booking.user.last_name }}</p>
-                <p><strong>Project Type:</strong> {{ booking.project_type|title }}</p>
-                <p><strong>Room Type:</strong> {{ booking.room_type|title }}</p>
-                <p><strong>Floor Type:</strong> {{ booking.floor_type|title|default:"Not Specified" }}</p>
-                <p><strong>Wall Finish:</strong> {{ booking.wall_finish|title|default:"Not Specified" }}</p>
-                <p><strong>Ceiling Type:</strong> {{ booking.ceiling_type|title|default:"Not Specified" }}</p>
-            </div>
-
-            <!-- Right Column -->
-            <div class="booking-column">
-                <p><strong>Lighting Preference:</strong> {{ booking.lighting_preference|title|default:"Not Specified" }}</p>
-                <p><strong>Room Area:</strong> {{ booking.room_area }} sq. ft.</p>
-                <p><strong>Budget Range:</strong> {{ booking.budget_range|default:"Not Specified" }}</p>
                 <p><strong>Booking Date:</strong> {{ booking.booking_date|date:"d-m-Y (h:i A)" }}</p>
                 <p><strong>Scheduled Date:</strong> {{ booking.scheduled_date|default:"Not Scheduled" }}</p>
                 <p><strong>Status:</strong> <span class="status {{ booking.status|lower }}">{{ booking.status|title }}</span></p>
@@ -30,8 +18,42 @@
             </div>
         </div>
 
-        <p><strong>Description:</strong> {{ booking.description|default:"No description provided." }}</p>
+        <!-- Room Details -->
+        {% for room in booking.rooms.all %}
+        <div class="room-container">
+            <h3>Room {{ forloop.counter }}</h3>
+            <div class="booking-card">
+                <div class="booking-column">
+                    <p><strong>Room Type:</strong> {{ room.room_type|title }}</p>
+                    <p><strong>Room Area:</strong> {{ room.room_area }} sq. ft.</p>
+                    {% if room.contract_preference %}
+                        <p><strong>Project Type:</strong> {{ room.contract_preference.project_type|title }}</p>
+                        <p><strong>Floor Type:</strong> {{ room.contract_preference.floor_type|title }}</p>
+                        <p><strong>Wall Finish:</strong> {{ room.contract_preference.wall_finish|title|default:"Not Specified" }}</p>
+                        <p><strong>Ceiling Type:</strong> {{ room.contract_preference.ceiling_type|title|default:"Not Specified" }}</p>
+                        <p><strong>Lighting Preference:</strong> {{ room.contract_preference.lighting_preference|title|default:"Not Specified" }}</p>
+                        <p><strong>Description:</strong> {{ room.contract_preference.description|title|default:"No description provided." }}</p>
+
+                    {% else %}
+                        <p>No contract preferences specified.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        
         <div class="button-container">
+            {% if booking.status == "completed" %}
+                <td>
+                    <a href="{% url 'add_contractor_feedback' booking.id %}" class="btn btn-success approve-btn" >Add Feedback</a>
+                </td>
+            {% endif %}
+            {% if booking.status %}
+                <td>
+                    <a href="{% url 'view_feedback' booking.id %}" class="btn btn-warning approve-btn" >View Feedback</a>
+                </td>
+            {% endif %}
             {% if booking.status in 'pending,confirmed' %}
             <a href="{% url 'cancel_contractor_booking' booking.id %}" class="btn-cancel">Cancel booking</a>
             {% endif %}
